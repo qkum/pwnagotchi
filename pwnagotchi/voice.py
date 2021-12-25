@@ -4,6 +4,11 @@ import random
 
 
 class Voice:
+"""
+Class containing Pwnagotchi's responses to things happening & it's emotional state.
+"""
+
+    # Init/start function. Gets the current path of this file & system language it seems #
     def __init__(self, lang):
         localedir = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'locale')
         translation = gettext.translation(
@@ -11,55 +16,72 @@ class Voice:
             languages=[lang],
             fallback=True,
         )
+        
+        # Why we got something installing here, after the program has been installed, is confusing  #
+        # I guess this "installation" code/function is run every time the __init__ function is run? #
+        # Is __init__  run only once - when you install Pwnagotchi or every time you start it up?   #
         translation.install()
         self._ = translation.gettext
 
-    def custom(self, s):
-        return s
-
+    
+    
     def default(self):
         return self._('ZzzzZZzzzzZzzz')
 
+    
     def on_starting(self):
         return random.choice([
             self._('Hi, I\'m Pwnagotchi! Starting ...'),
             self._('New day, new hunt, new pwns!'),
             self._('Hack the Planet!')])
 
+    
     def on_ai_ready(self):
         return random.choice([
             self._('AI ready.'),
             self._('The neural network is ready.')])
 
+    # random.choice with 1 choice makes sense - removed #
     def on_keys_generation(self):
-        return random.choice([
+        return ([
             self._('Generating keys, do not turn off ...')])
 
+    # Responding nothing just makes you think it stopped running/bugged out: - removed ' ' #
+    # Responding with '...' also makes you wonder what it means & what it is currently doing - removed #
+    # And what is even "normal" when you are a cute agent de-authing people for a living?? #
+    # Changed the message to something that makes more sense for a humanbeing not understanding the code #
     def on_normal(self):
-        return random.choice([
-            '',
-            '...'])
+        return ([
+            'Nothing new to report...'])
 
+    # Free in what way? Channels never cost money. They are always free - replaced with 'empty' #
+    # Added 'wifi' for better context #
+    # Added 'Yo buddy' - sounds better than just 'hey' #
     def on_free_channel(self, channel):
-        return self._('Hey, channel {channel} is free! Your AP will say thanks.').format(channel=channel)
+        return self._('Yo buddy, wifi channel {channel} is completely empty!').format(channel=channel)
 
+    
     def on_reading_logs(self, lines_so_far=0):
         if lines_so_far == 0:
             return self._('Reading last session logs ...')
         else:
             return self._('Read {lines_so_far} log lines so far ...').format(lines_so_far=lines_so_far)
 
+        
     def on_bored(self):
         return random.choice([
             self._('I\'m bored ...'),
             self._('Let\'s go for a walk!')])
 
+    
     def on_motivated(self, reward):
         return self._('This is the best day of my life!')
 
+    
     def on_demotivated(self, reward):
         return self._('Shitty day :/')
 
+    
     def on_sad(self):
         return random.choice([
             self._('I\'m extremely bored ...'),
@@ -67,6 +89,7 @@ class Voice:
             self._('I\'m sad'),
             '...'])
 
+    
     def on_angry(self):
         # passive aggressive or not? :D
         return random.choice([
@@ -74,6 +97,7 @@ class Voice:
             self._('Leave me alone ...'),
             self._('I\'m mad at you!')])
 
+    
     def on_excited(self):
         return random.choice([
             self._('I\'m living the life!'),
@@ -82,6 +106,7 @@ class Voice:
             self._('I\'m having so much fun!'),
             self._('My crime is that of curiosity ...')])
 
+    
     def on_new_peer(self, peer):
         if peer.first_encounter():
             return random.choice([
@@ -92,39 +117,46 @@ class Voice:
                 self._('Hey {name} how are you doing?').format(name=peer.name()),
                 self._('Unit {name} is nearby!').format(name=peer.name())])
 
+        
     def on_lost_peer(self, peer):
         return random.choice([
             self._('Uhm ... goodbye {name}').format(name=peer.name()),
             self._('{name} is gone ...').format(name=peer.name())])
 
+    
     def on_miss(self, who):
         return random.choice([
             self._('Whoops ... {name} is gone.').format(name=who),
             self._('{name} missed!').format(name=who),
             self._('Missed!')])
 
+    
     def on_grateful(self):
         return random.choice([
             self._('Good friends are a blessing!'),
             self._('I love my friends!')])
 
+    
     def on_lonely(self):
         return random.choice([
             self._('Nobody wants to play with me ...'),
             self._('I feel so alone ...'),
             self._('Where\'s everybody?!')])
 
+    
     def on_napping(self, secs):
         return random.choice([
             self._('Napping for {secs}s ...').format(secs=secs),
             self._('Zzzzz'),
             self._('ZzzZzzz ({secs}s)').format(secs=secs)])
 
+    
     def on_shutdown(self):
         return random.choice([
             self._('Good night.'),
             self._('Zzz')])
 
+    
     def on_awakening(self):
         return random.choice(['...', '!'])
 
@@ -134,6 +166,7 @@ class Voice:
             '...',
             self._('Looking around ({secs}s)').format(secs=secs)])
 
+    
     def on_assoc(self, ap):
         ssid, bssid = ap['hostname'], ap['mac']
         what = ssid if ssid != '' and ssid != '<hidden>' else bssid
@@ -142,26 +175,32 @@ class Voice:
             self._('Associating to {what}').format(what=what),
             self._('Yo {what}!').format(what=what)])
 
+    
     def on_deauth(self, sta):
         return random.choice([
             self._('Just decided that {mac} needs no WiFi!').format(mac=sta['mac']),
             self._('Deauthenticating {mac}').format(mac=sta['mac']),
             self._('Kickbanning {mac}!').format(mac=sta['mac'])])
 
+    
     def on_handshakes(self, new_shakes):
         s = 's' if new_shakes > 1 else ''
         return self._('Cool, we got {num} new handshake{plural}!').format(num=new_shakes, plural=s)
 
+    
     def on_unread_messages(self, count, total):
         s = 's' if count > 1 else ''
         return self._('You have {count} new message{plural}!').format(count=count, plural=s)
 
+    
     def on_rebooting(self):
         return self._("Oops, something went wrong ... Rebooting ...")
 
+    
     def on_uploading(self, to):
         return self._("Uploading data to {to} ...").format(to=to)
 
+    
     def on_last_session_data(self, last_session):
         status = self._('Kicked {num} stations\n').format(num=last_session.deauthed)
         if last_session.associated > 999:
@@ -175,6 +214,7 @@ class Voice:
             status += self._('Met {num} peers').format(num=last_session.peers)
         return status
 
+    
     def on_last_session_tweet(self, last_session):
         return self._(
             'I\'ve been pwning for {duration} and kicked {deauthed} clients! I\'ve also met {associated} new friends and ate {handshakes} handshakes! #pwnagotchi #pwnlog #pwnlife #hacktheplanet #skynet').format(
@@ -183,6 +223,7 @@ class Voice:
             associated=last_session.associated,
             handshakes=last_session.handshakes)
 
+  
     def hhmmss(self, count, fmt):
         if count > 1:
             # plural
