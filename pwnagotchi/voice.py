@@ -75,11 +75,14 @@ Class containing Pwnagotchi's responses to things happening & it's emotional sta
 
     
     def on_motivated(self, reward):
-        return self._('This is the best day of my life!')
+        return self._('This is the best day of my life!', 
+                      'Rock N Roll Baby!', 
+                      'We are killing it today!')
 
     
     def on_demotivated(self, reward):
-        return self._('Shitty day :/')
+        return self._('I feel so demotivated :/')            # self._('Shitty day :/')
+        
 
     
     def on_sad(self):
@@ -89,9 +92,9 @@ Class containing Pwnagotchi's responses to things happening & it's emotional sta
             self._('I\'m sad'),
             '...'])
 
-    
+    # I don't want a bi-polar Pwnagotchi - we got enough negativity in the world as it already is #
+    # I will delete/change this "on_angry" function when I understand the rest of the code better #
     def on_angry(self):
-        # passive aggressive or not? :D
         return random.choice([
             '...',
             self._('Leave me alone ...'),
@@ -104,12 +107,12 @@ Class containing Pwnagotchi's responses to things happening & it's emotional sta
             self._('I pwn therefore I am.'),
             self._('So many networks!!!'),
             self._('I\'m having so much fun!'),
-            self._('My crime is that of curiosity ...')])
+            self._('My crime is that of curiosity ...')])   
 
     
     def on_new_peer(self, peer):
         if peer.first_encounter():
-            return random.choice([
+            return ([
                 self._('Hello {name}! Nice to meet you.').format(name=peer.name())])
         else:
             return random.choice([
