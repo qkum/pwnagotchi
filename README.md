@@ -1,5 +1,5 @@
 # Pwnagotchi Passive - Work in progress. 
-# 1000x thanks to evil socket and all the other contributers - big respect.
+# 1000 thanks to evil socket and all the other contributers - big respect.
 # This project still got humongous untapped potential.
 <!-- 
 <p align="center">
