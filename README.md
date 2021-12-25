@@ -1,5 +1,7 @@
-# Pwnagotchi
-
+# Pwnagotchi Passive - Work in progress. 
+# 1000x thanks to evil socket and all the other contributers - big respect.
+# This project still got humongous untapped potential.
+<!-- 
 <p align="center">
     <a href="https://github.com/evilsocket/pwnagotchi/releases/latest"><img alt="Release" src="https://img.shields.io/github/release/evilsocket/pwnagotchi.svg?style=flat-square"></a>
     <a href="https://github.com/evilsocket/pwnagotchi/blob/master/LICENSE.md"><img alt="Software License" src="https://img.shields.io/badge/license-GPL3-brightgreen.svg?style=flat-square"></a>
@@ -39,4 +41,4 @@ Twitter | [@pwnagotchi](https://twitter.com/pwnagotchi)
 
 ## License
 
-`pwnagotchi` is made with ♥  by [@evilsocket](https://twitter.com/evilsocket) and the [amazing dev team](https://github.com/evilsocket/pwnagotchi/graphs/contributors). It is released under the GPL3 license.
+`pwnagotchi` is made with ♥  by [@evilsocket](https://twitter.com/evilsocket) and the [amazing dev team](https://github.com/evilsocket/pwnagotchi/graphs/contributors). It is released under the GPL3 license. -->
